@@ -34,42 +34,25 @@ struct GameAssets {
 
 impl AssetProvider for GameAssets {
     fn get(&self, uri: &str) -> Option<Vec<u8>> {
-        let cleaned = uri.strip_prefix("std:").unwrap_or(uri);
-
-        if let Some(data) = self.dll.get(cleaned) {
-            return Some(data.to_vec());
+        if let Some(path) = uri.strip_prefix("std:") {
+            return self.read_loose(path);
         }
 
-        if let Some(stem) = Path::new(cleaned)
-            .file_stem()
-            .and_then(|value| value.to_str())
-            && let Some(data) = self.dll.get(stem)
-        {
-            return Some(data.to_vec());
-        }
+        self.dll.get(uri).map(|data| data.to_vec())
+    }
+}
 
-        for name in [
-            cleaned.to_string(),
-            cleaned.to_ascii_uppercase(),
-            cleaned.to_ascii_lowercase(),
+impl GameAssets {
+    fn read_loose(&self, name: &str) -> Option<Vec<u8>> {
+        for candidate in [
+            name.to_string(),
+            name.to_ascii_uppercase(),
+            name.to_ascii_lowercase(),
         ] {
-            let path = self.data_dir.join(name);
-            if let Ok(data) = std::fs::read(path) {
+            if let Ok(data) = std::fs::read(self.data_dir.join(candidate)) {
                 return Some(data);
             }
         }
-
-        if cleaned.eq_ignore_ascii_case("distributor.jpg") {
-            for path in [
-                self.data_dir.join("drm").join("logo.jpg"),
-                self.data_dir.join("logo.jpg"),
-            ] {
-                if let Ok(data) = std::fs::read(path) {
-                    return Some(data);
-                }
-            }
-        }
-
         None
     }
 }
