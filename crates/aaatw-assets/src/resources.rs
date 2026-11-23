@@ -174,8 +174,8 @@ fn collect_resources(
     resources: &mut HashMap<String, ResourceEntry>,
     names: &mut Vec<String>,
 ) -> Result<(), ResourceError> {
-    for (_type_name, type_offset) in read_directory(data, base, base)? {
-        if type_offset & 0x8000_0000 == 0 {
+    for (type_name, type_offset) in read_directory(data, base, base)? {
+        if type_name.starts_with('#') || type_offset & 0x8000_0000 == 0 {
             continue;
         }
 
