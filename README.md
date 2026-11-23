@@ -6,6 +6,8 @@
 [![Rust edition 2024](https://img.shields.io/badge/rust-edition%202024-orange)](https://doc.rust-lang.org/edition-guide/2024/index.html)
 [![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macOS-blue)](#targets)
 
+> **New agent?** Read `AGENTS.md` first, then `docs/roadmap.md`.
+
 Open-source, cross-platform Rust reimplementation of the inner game binary from
 *Amazing Adventures Around the World* (Steam AppID **3530**, version **1.0.0.5**).
 
