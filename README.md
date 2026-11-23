@@ -1,5 +1,10 @@
 # aaatw-rs
 
+[![CI](https://github.com/thomashodgkinson1987/aaatw-rs/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/thomashodgkinson1987/aaatw-rs/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/thomashodgkinson1987/aaatw-rs)](https://github.com/thomashodgkinson1987/aaatw-rs/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/thomashodgkinson1987/aaatw-rs)](LICENSE)
+[![Rust edition 2024](https://img.shields.io/badge/rust-edition%202024-orange)](https://doc.rust-lang.org/edition-guide/2024/index.html)
+
 Open-source, cross-platform Rust reimplementation of the inner game binary from
 *Amazing Adventures Around the World* (Steam AppID **3530**, version **1.0.0.5**).
 
@@ -50,9 +55,9 @@ cd "/path/to/Amazing Adventures Around the World"
 The game looks for `Resource.dll` in the executable's directory and the current
 working directory. You can override the asset directory with `--data-dir`.
 
-Linux release builds currently target `x86_64-unknown-linux-gnu`. Static musl
-builds are a future goal; the bundled SDL2 CMake build does not yet cross-compile
-cleanly to musl in this setup.
+Linux release builds target x86_64 and aarch64 glibc. Static musl builds are a
+future goal; the bundled SDL2 CMake build does not yet cross-compile cleanly to musl
+in this setup.
 
 ## Asset extraction tool
 
@@ -69,12 +74,26 @@ cargo run -p aaatw-extract -- extract-all "/path/to/Resource.dll" assets/
 
 Current release targets:
 
-- Windows x86_64 (`x86_64-pc-windows-gnu`)
-- Linux x86_64 (`x86_64-unknown-linux-gnu`)
+- Windows x86_64 (`x86_64-pc-windows-msvc`)
+- Linux x86_64 (`x86_64-unknown-linux-gnu`, glibc)
+- Linux aarch64 (`aarch64-unknown-linux-gnu`, glibc)
 - macOS x86_64 (`x86_64-apple-darwin`)
 - macOS aarch64 (`aarch64-apple-darwin`)
 
-Planned: Linux aarch64 and static musl builds.
+Static musl Linux builds are a future goal.
+
+## Releases
+
+Releases are produced by the [Release workflow](.github/workflows/release.yml) when a
+`v*` tag is pushed. Artifacts are named:
+
+```text
+aaatw-<version>-<target>.zip     # Windows
+aaatw-<version>-<target>.tar.gz  # Linux and macOS
+```
+
+Each archive contains the `aaatw` binary, `README.md`, and `LICENSE`. A
+`SHA256SUMS` file is attached to the GitHub Release.
 
 ## Repository layout
 

@@ -79,6 +79,18 @@ Run the asset tool:
 cargo run -p aaatw-extract -- list /path/to/Resource.dll
 ```
 
+## Releases
+
+Releases are cut by tagging `main` with `vX.Y.Z` and pushing the tag. The Release
+workflow builds the artifacts, generates release notes with git-cliff, and publishes
+the GitHub Release.
+
+- Use SemVer for the tag (`v0.1.1`, `v0.2.0`, etc.).
+- Update `CHANGELOG.md` under `Unreleased` before tagging.
+- Keep commit messages Conventional Commits so git-cliff can group them.
+- Do not hand-edit the generated release notes; change the changelog and commit
+  messages instead.
+
 ## Pull requests
 
 1. Create a feature branch from `develop`.
