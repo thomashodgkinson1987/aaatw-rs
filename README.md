@@ -50,6 +50,10 @@ cd "/path/to/Amazing Adventures Around the World"
 The game looks for `Resource.dll` in the executable's directory and the current
 working directory. You can override the asset directory with `--data-dir`.
 
+Linux release builds currently target `x86_64-unknown-linux-gnu`. Static musl
+builds are a future goal; the bundled SDL2 CMake build does not yet cross-compile
+cleanly to musl in this setup.
+
 ## Asset extraction tool
 
 `aaatw-extract` is a developer tool for inspecting and extracting resources from
@@ -60,6 +64,17 @@ cargo run -p aaatw-extract -- list "/path/to/Resource.dll"
 cargo run -p aaatw-extract -- extract "/path/to/Resource.dll" SPLASHSCREENS.XUI out.xui
 cargo run -p aaatw-extract -- extract-all "/path/to/Resource.dll" assets/
 ```
+
+## Targets
+
+Current release targets:
+
+- Windows x86_64 (`x86_64-pc-windows-gnu`)
+- Linux x86_64 (`x86_64-unknown-linux-gnu`)
+- macOS x86_64 (`x86_64-apple-darwin`)
+- macOS aarch64 (`aarch64-apple-darwin`)
+
+Planned: Linux aarch64 and static musl builds.
 
 ## Repository layout
 

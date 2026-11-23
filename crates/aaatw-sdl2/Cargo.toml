@@ -1,0 +1,13 @@
+[package]
+name = "aaatw-sdl2"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "SDL2 backend for aaatw-rs"
+
+[dependencies]
+aaatw-core.workspace = true
+aaatw-platform.workspace = true
+sdl2.workspace = true
