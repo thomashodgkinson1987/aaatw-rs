@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-23
+
 ### Added
 
 - Tag-driven release workflow with artifacts for Windows MSVC, Linux x86_64/aarch64
@@ -45,5 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions CI configuration for Windows, Linux, and macOS.
 - Keep a Changelog, contributing guide, MIT license, and initial documentation.
 
-[Unreleased]: https://github.com/thomashodgkinson1987/aaatw-rs/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/thomashodgkinson1987/aaatw-rs/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.2
 [0.1.0]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.0
