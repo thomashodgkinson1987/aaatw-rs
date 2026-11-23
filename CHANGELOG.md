@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-11-23
+
 ### Fixed
 
 - Splash screens now hold at full opacity, fade through black, and then fade in the
@@ -59,7 +61,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions CI configuration for Windows, Linux, and macOS.
 - Keep a Changelog, contributing guide, MIT license, and initial documentation.
 
-[Unreleased]: https://github.com/thomashodgkinson1987/aaatw-rs/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/thomashodgkinson1987/aaatw-rs/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.4
 [0.1.3]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.3
 [0.1.2]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.2
 [0.1.0]: https://github.com/thomashodgkinson1987/aaatw-rs/releases/tag/v0.1.0
