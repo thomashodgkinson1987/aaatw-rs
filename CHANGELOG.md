@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- SDL2 textures now use `BlendMode::BLEND`, so alpha modulation works. Splash
+  crossfades are visible, and PNG alpha is respected.
+
 ## [0.1.2] - 2026-11-23
 
 ### Added

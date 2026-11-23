@@ -1,7 +1,7 @@
 use aaatw_core::{Color, Renderer, Result, Surface};
 use sdl2::pixels::{Color as SdlColor, PixelFormatEnum};
 use sdl2::rect::Rect as SdlRect;
-use sdl2::render::{TextureCreator, WindowCanvas};
+use sdl2::render::{BlendMode, TextureCreator, WindowCanvas};
 use sdl2::video::WindowContext;
 
 pub struct Sdl2Renderer {
@@ -46,6 +46,8 @@ impl Renderer for Sdl2Renderer {
             return;
         }
 
+        texture.set_blend_mode(BlendMode::BLEND);
+
         let target = SdlRect::new(x, y, surface.width, surface.height);
         let _ = self.canvas.copy(&texture, None, target);
     }
@@ -68,7 +70,9 @@ impl Renderer for Sdl2Renderer {
             return;
         }
 
+        texture.set_blend_mode(BlendMode::BLEND);
         texture.set_alpha_mod((alpha * 255.0).round() as u8);
+
         let target = SdlRect::new(x, y, surface.width, surface.height);
         let _ = self.canvas.copy(&texture, None, target);
     }
