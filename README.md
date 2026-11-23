@@ -27,7 +27,7 @@ require the original wrapper to run.
 - PE resource parser for `Resource.dll`.
 - XUI parser for the game's XML UI format.
 - SDL2 software-rendered 800x600 window with nearest-neighbour scaling.
-- Splash-screen sequence and title screen.
+- Splash-screen sequence and title screen, with the original timings and crossfades.
 
 It is not yet a playable game. See [CHANGELOG.md](CHANGELOG.md) for the current
 state and [docs/](docs/) for design notes.

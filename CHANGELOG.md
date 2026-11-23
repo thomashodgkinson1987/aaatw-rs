@@ -20,6 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   current GitHub Actions versions (`actions/checkout@v5`, `actions/upload-artifact@v6`,
   `Swatinem/rust-cache@v2`).
 - macOS builds no longer use the retired `macos-14`/`macos-13` runner images.
+- Splash screens now use the original dwell durations and crossfade transitions.
+
+### Fixed
+
+- `std:` URIs now resolve as loose files in the game directory, matching the
+  original VFS. Non-`std:` URIs resolve through `Resource.dll`.
+- Removed the incorrect `drm/logo.jpg` fallback for the missing `distributor.jpg`.
 
 ## [0.1.0] - 2026-11-23
 

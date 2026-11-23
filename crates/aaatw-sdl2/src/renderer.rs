@@ -50,6 +50,29 @@ impl Renderer for Sdl2Renderer {
         let _ = self.canvas.copy(&texture, None, target);
     }
 
+    fn draw_surface_alpha(&mut self, surface: &Surface, x: i32, y: i32, alpha: f32) {
+        let alpha = alpha.clamp(0.0, 1.0);
+        let mut texture = match self.texture_creator.create_texture_streaming(
+            PixelFormatEnum::RGBA32,
+            surface.width,
+            surface.height,
+        ) {
+            Ok(texture) => texture,
+            Err(_) => return,
+        };
+
+        if texture
+            .update(None, &surface.pixels, surface.width as usize * 4)
+            .is_err()
+        {
+            return;
+        }
+
+        texture.set_alpha_mod((alpha * 255.0).round() as u8);
+        let target = SdlRect::new(x, y, surface.width, surface.height);
+        let _ = self.canvas.copy(&texture, None, target);
+    }
+
     fn present(&mut self) -> Result<()> {
         self.canvas.present();
         Ok(())
