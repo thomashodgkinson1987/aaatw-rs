@@ -4,66 +4,53 @@ on:
   push:
     branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  fmt:
-    name: Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
-      - run: cargo fmt --all -- --check
-
   test:
-    name: Test and lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy
-      - run: cargo test --workspace
-      - run: cargo clippy --workspace --all-targets -- -D warnings
-
-  build:
-    name: Build ${{ matrix.target }}
+    name: test (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-          - os: ubuntu-latest
-            target: x86_64-pc-windows-gnu
-          - os: macos-13
-            target: x86_64-apple-darwin
-          - os: macos-14
-            target: aarch64-apple-darwin
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - run: rustup target add ${{ matrix.target }}
+      - uses: actions/checkout@v5
 
-      - name: Install Linux build dependencies
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake gcc-mingw-w64-x86-64
+          sudo apt-get install -y cmake pkg-config build-essential \
+            libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev \
+            libxinerama-dev libxss-dev libxxf86vm-dev libudev-dev \
+            libasound2-dev libpulse-dev libdbus-1-dev \
+            libwayland-dev libxkbcommon-dev \
+            libgl1-mesa-dev libegl1-mesa-dev
 
-      - name: Build
-        run: cargo build --release -p aaatw-cli --target ${{ matrix.target }}
-        env:
-          CC_x86_64_pc_windows_gnu: x86_64-w64-mingw32-gcc
-          CXX_x86_64_pc_windows_gnu: x86_64-w64-mingw32-g++
+      - name: Format
+        run: cargo fmt --all -- --check
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: aaatw-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/aaatw*
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Test
+        run: cargo test --workspace
+
+      - name: Build release
+        run: cargo build --release --locked -p aaatw-cli
