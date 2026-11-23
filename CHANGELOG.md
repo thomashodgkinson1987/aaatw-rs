@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Tag-driven release workflow with artifacts for Windows MSVC, Linux x86_64/aarch64
+  glibc, and macOS x86_64/aarch64.
+- git-cliff configuration for generating release notes from Conventional Commits.
+- CI and release badges.
+
+### Changed
+
+- CI now runs on `ubuntu-latest`, `windows-latest`, and `macos-latest`, and uses
+  current GitHub Actions versions (`actions/checkout@v5`, `actions/upload-artifact@v6`,
+  `Swatinem/rust-cache@v2`).
+- macOS builds no longer use the retired `macos-14`/`macos-13` runner images.
+
 ## [0.1.0] - 2026-11-23
 
 ### Added
