@@ -1,0 +1,17 @@
+[package]
+name = "aaatw-extract"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Resource extraction tool for aaatw-rs"
+
+[[bin]]
+name = "aaatw-extract"
+path = "src/main.rs"
+
+[dependencies]
+aaatw-assets.workspace = true
+anyhow.workspace = true
+clap.workspace = true
