@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Added `AGENTS.md`, `docs/roadmap.md`, `docs/original-binary.md`,
+  `docs/testing.md`, and `docs/decisions.md` for agent handoff and future work.
+
 ## [0.1.4] - 2026-11-23
 
 ### Fixed
