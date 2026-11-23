@@ -31,19 +31,31 @@ black. There is **no** `drm/logo.jpg` fallback.
 
 ## Timing
 
-The original splash state machine uses these durations:
+The original state machine uses a **pre-delay (hold)** before each fade tween:
 
-| State | Texture | Duration |
-|---|---|---|
-| 1 | `std:distributor.jpg` | 1.25 s |
-| 2 | `std:publisher.jpg` | 1.25 s |
-| 3 | `spintopsplash.jpg` | 1.25 s |
-| 4 | `title_background.jpg` | 1.75 s |
-| 5 | `title_background.jpg` | 2.5 s |
+| State | Texture | Hold | Fade |
+|---|---|---|---|
+| 1 | `std:distributor.jpg` | 0.5 s | 1.25 s |
+| 2 | `std:publisher.jpg` | 0.5 s | 1.25 s |
+| 3 | `spintopsplash.jpg` | 0.5 s | 1.25 s |
+| 4 | `title_background.jpg` | 1.75 s | 0 s (same image as state 5) |
+| 5 | `title_background.jpg` | 2.5 s | 0 s |
 
-The port uses a continuous crossfade between these states. The first state fades
-in from black, matching the original's black distributor splash when
-`distributor.jpg` is absent.
+The port holds each screen at full opacity, fades it to black, then fades in the
+next screen. This matches the original's fade-through-black transitions rather than
+a direct crossfade. The first state holds black (the distributor image is absent)
+before fading to the publisher logo. The title background is held for
+`1.75 + 2.5 = 4.25 s` across states 4 and 5.
+
+This was measured from the original at 30 fps:
+
+- Publisher holds at full opacity for ~0.5 s, then fades over ~1.25 s.
+- SpinTop holds for ~0.5-0.9 s, then fades over ~1.2 s.
+- The title background holds for ~4.25 s before the main-menu fade.
+
+The relevant pre-delay constant is `0x52dff8` (0.5 s). The tween callback
+(`0x406730`) decrements `[app+0x104]` and returns while it is positive, which is
+what creates the hold.
 
 ## Reference addresses (inner game, image base `0x400000`)
 
@@ -60,6 +72,7 @@ in from black, matching the original's black distributor splash when
 | `0x5279e8` | `1.25` seconds. |
 | `0x52e148` | `1.75` seconds. |
 | `0x52e0c0` | `2.5` seconds. |
+| `0x52dff8` | `0.5` seconds pre-fade/hold. |
 
 The VFS code is the reason `std:publisher.jpg` loads the loose `publisher.jpg`
 while `spintopsplash.jpg` loads `SPINTOPSPLASH.JPG` from `Resource.dll`.

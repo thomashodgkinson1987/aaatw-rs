@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "aaatw-assets"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "roxmltree",
  "thiserror",
@@ -12,7 +12,7 @@ dependencies = [
 
 [[package]]
 name = "aaatw-cli"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "aaatw-assets",
  "aaatw-core",
@@ -23,7 +23,7 @@ dependencies = [
 
 [[package]]
 name = "aaatw-core"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "image",
  "thiserror",
@@ -31,7 +31,7 @@ dependencies = [
 
 [[package]]
 name = "aaatw-extract"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "aaatw-assets",
  "anyhow",
@@ -40,14 +40,14 @@ dependencies = [
 
 [[package]]
 name = "aaatw-platform"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "aaatw-core",
 ]
 
 [[package]]
 name = "aaatw-sdl2"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "aaatw-core",
  "aaatw-platform",
